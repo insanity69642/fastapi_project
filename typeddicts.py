@@ -1,10 +1,16 @@
-from typing import TypedDict, NotRequired
+from pydantic import BaseModel
+from dataclasses import dataclass
 
-class ClientConnectProps(TypedDict):
-    url: str
-    key: str
 
-class User(TypedDict, total = True):
-    person_id: NotRequired[int]
+@dataclass
+class BaseUser(BaseModel):
+    def __getitem__(self, key: str):
+        if key == "name":
+            return self.name
+        elif key == "age":
+            return self.age
+        else:
+            raise KeyError("That key does not exist")
+
     name: str
     age: int
