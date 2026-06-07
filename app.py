@@ -14,7 +14,7 @@ load_dotenv()
 
 client: sb.Client = sb.create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
 table: sbt.SyncRequestBuilder = client.from_("persons")
-api = fapi.FastAPI()
+app = fapi.FastAPI()
 
 type Status = Literal["success", "error"]
 type Data = tuple[Status, Optional[str]]
@@ -37,7 +37,7 @@ def lmf(seq: Sequence[Any], lim: int) -> Sequence[Any]:
 
     return new_seq
 
-@api.get("/persons/get/")
+@app.get("/persons/get/")
 def get_users(name: Optional[str] = None, age: Optional[str] = None, limit: Optional[int] = None):
     users: Union[sbt.APIResponse, Sequence[Any]] = table.select("*").execute()
     users = users.data
@@ -91,7 +91,7 @@ def get_users(name: Optional[str] = None, age: Optional[str] = None, limit: Opti
         return users
     return users
 
-@api.post("/persons/add")
+@app.post("/persons/add")
 def post_user(user: BaseUser | list[Any]):
     if isinstance(user, BaseUser):
         return add_user(user)
