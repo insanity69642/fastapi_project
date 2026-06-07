@@ -3,3 +3,4 @@ uv.lock
 .python-version
 .env
 __pycache__
+.vscode/settings.json
