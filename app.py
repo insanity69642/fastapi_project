@@ -1,11 +1,23 @@
 from dotenv import load_dotenv
 from copy import deepcopy
+from pydantic import BaseModel
 from typing import *
-from typeddicts import *
 import fastapi as fapi
 import supabase as sb
 import postgrest as sbt
 import os
+
+class BaseUser(BaseModel):
+    def __getitem__(self, key: str):
+        if key == "name":
+            return self.name
+        elif key == "age":
+            return self.age
+        else:
+            raise KeyError("That key does not exist")
+
+    name: str
+    age: int
 
 def includes(a: str, b: str) -> bool:
     return a.find(b) != -1
