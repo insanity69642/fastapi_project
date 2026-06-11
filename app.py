@@ -12,7 +12,7 @@ def includes(a: str, b: str) -> bool:
 
 load_dotenv()
 
-client: sb.Client = sb.create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
+client: sb.Client = sb.create_client(os.environ["DATABASE_URL"], os.environ["DATABASE_KEY"])
 table: sbt.SyncRequestBuilder = client.from_("persons")
 app = fapi.FastAPI()
 
