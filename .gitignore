@@ -4,3 +4,5 @@ uv.lock
 .env
 __pycache__
 .vscode/settings.json
+.vscode
+.fastapicloud
